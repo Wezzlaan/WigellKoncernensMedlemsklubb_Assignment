@@ -13,6 +13,5 @@ public class Main {
         member.setRank(Ranks.NOOB);
 
         System.out.println("Namn: " + member.getName() + "\nID: " + member.getID() + "\nRank: " + member.getRank());
-
     }
 }

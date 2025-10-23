@@ -5,6 +5,7 @@ public class Member {
     private String ID; //TO DO: generera random ID vid skapning av member.
     private String name;
     private Ranks rank;
+    private MemberHistory memberHistory;
 
     public Member() {}
 
@@ -35,6 +36,15 @@ public class Member {
     }
 
     /**
+     *
+     * @param newName Sets new name to member object
+     */
+    public void setName(String newName)
+    {
+        this.name = newName;
+    }
+
+    /**
      * @return Member rank
      */
     public Ranks getRank()
@@ -48,5 +58,10 @@ public class Member {
     public void setRank(Ranks newRank)
     {
         this.rank = newRank;
+    }
+
+    public MemberHistory getMemberHistory()
+    {
+        return memberHistory;
     }
 }
