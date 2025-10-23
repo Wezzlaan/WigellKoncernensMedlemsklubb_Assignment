@@ -1,5 +1,6 @@
 package com.vestrin;
 
+import com.vestrin.items.Monitor;
 import com.vestrin.members.Member;
 import com.vestrin.members.Ranks;
 
@@ -13,5 +14,9 @@ public class Main {
         member.setRank(Ranks.NOOB);
 
         System.out.println("Namn: " + member.getName() + "\nID: " + member.getID() + "\nRank: " + member.getRank());
+
+        Monitor monitor = new Monitor ("Q27G3XMN", "AOC", 149.0, "453153");
+
+        System.out.println(monitor.formattedName() + " " + monitor.getItemID() + " " + monitor.getPrice() + " " + monitor.getItemType());
     }
 }
