@@ -89,4 +89,13 @@ public abstract class Item {
     {
         return this.brand + " " + this.model;
     }
+
+    /**
+     * @return Object to readable String. Format: Brand + Model + ItemID + Price.
+     */
+    @Override
+    public String toString()
+    {
+        return this.formattedName() + " " + this.itemID + " " + this.price;
+    }
 }
