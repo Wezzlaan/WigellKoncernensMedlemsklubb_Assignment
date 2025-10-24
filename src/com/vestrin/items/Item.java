@@ -29,8 +29,7 @@ public abstract class Item {
     public enum ItemType
     {
         PERIPHERALS,
-        HARDWARE,
-        BOARD_GAMES
+        HARDWARE
     }
 
     public ItemType getItemType()
@@ -78,6 +77,9 @@ public abstract class Item {
         return this.itemID;
     }
 
+    /**
+     * @param itemID set new item ID as String.
+     */
     public void setItemID(String itemID)
     {
         this.itemID = itemID;
@@ -89,5 +91,14 @@ public abstract class Item {
     public String formattedName()
     {
         return this.brand + " " + this.model;
+    }
+
+    /**
+     * @return Object to readable String. Format: Brand + Model + ItemID + Price.
+     */
+    @Override
+    public String toString()
+    {
+        return this.formattedName() + "\n" + "Artikelnummer: " + this.itemID + "\n" + this.price + ";-";
     }
 }
