@@ -77,6 +77,9 @@ public abstract class Item {
         return this.itemID;
     }
 
+    /**
+     * @param itemID set new item ID as String.
+     */
     public void setItemID(String itemID)
     {
         this.itemID = itemID;
@@ -96,6 +99,6 @@ public abstract class Item {
     @Override
     public String toString()
     {
-        return this.formattedName() + " " + this.itemID + " " + this.price;
+        return this.formattedName() + "\n" + "Artikelnummer: " + this.itemID + "\n" + this.price + ";-";
     }
 }

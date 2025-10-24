@@ -3,9 +3,11 @@ package com.vestrin;
 import com.vestrin.items.Item;
 import com.vestrin.items.Monitor;
 import com.vestrin.items.Mouse;
+import com.vestrin.items.PC;
 import com.vestrin.members.Member;
 import com.vestrin.members.Ranks;
 import com.vestrin.storage.Inventory;
+import com.vestrin.storage.InventoryFileWriter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,13 +27,9 @@ public class Main {
 
         System.out.println(monitor.formattedName() + " " + monitor.getItemID() + " " + monitor.getPrice() + " " + monitor.getItemType());*/
 
-        Inventory inventory = new Inventory();
+        //Inventory inventory = new Inventory();
 
-        inventory.addItem(new Monitor ("Q27G3XMN", "AOC", 149.0, "453153"));
 
-        inventory.addItem(new Mouse("G502", "Logitech", 99, "345243"));
-
-        List<Item> items = inventory.getItems();
     }
 
 
