@@ -19,4 +19,9 @@ public class Main {
 
         System.out.println(monitor.formattedName() + " " + monitor.getItemID() + " " + monitor.getPrice() + " " + monitor.getItemType());
     }
+
+
+    /*TO DO:
+    * LÄGG TILL FLER SORTERS ITEMS
+    * NY BRANCH FÖR BYGGA FUNKTIONALITET FÖR INVENTORY AV ITEMS*/
 }

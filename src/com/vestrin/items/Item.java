@@ -29,8 +29,7 @@ public abstract class Item {
     public enum ItemType
     {
         PERIPHERALS,
-        HARDWARE,
-        BOARD_GAMES
+        HARDWARE
     }
 
     public ItemType getItemType()
