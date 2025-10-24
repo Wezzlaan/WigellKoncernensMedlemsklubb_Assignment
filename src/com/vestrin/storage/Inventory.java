@@ -38,8 +38,17 @@ public class Inventory {
     {
         if (items.isEmpty())
         {
-            throw new NoSuchElementException("Kunde inte ta bort första objektet i listan: 'Inventory' är tomt.");
+            throw new NoSuchElementException("FEL! Kunde inte ta bort första objektet i listan. Orsak: 'Inventory' är tomt.");
         }
         items.removeFirst();
+    }
+
+    public void remove(Item item)
+    {
+        if (items.isEmpty())
+        {
+            throw new NoSuchElementException("FEL! Kunde inte ta bort objektet i listan. Orsak: 'Inventory' är tomt.");
+        }
+        this.items.remove(item);
     }
 }

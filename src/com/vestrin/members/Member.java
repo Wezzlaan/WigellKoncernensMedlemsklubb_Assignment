@@ -64,4 +64,9 @@ public class Member {
     {
         return memberHistory;
     }
+    @Override
+    public String toString()
+    {
+        return this.name + "\n" + this.ID + "\n" + this.rank;
+    }
 }

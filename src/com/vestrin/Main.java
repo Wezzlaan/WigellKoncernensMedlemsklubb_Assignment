@@ -31,9 +31,4 @@ public class Main {
 
 
     }
-
-
-    /*TO DO:
-    * LÄGG TILL FLER SORTERS ITEMS
-    * NY BRANCH FÖR BYGGA FUNKTIONALITET FÖR INVENTORY AV ITEMS*/
 }
