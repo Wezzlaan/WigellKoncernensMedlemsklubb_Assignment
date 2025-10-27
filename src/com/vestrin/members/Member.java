@@ -1,6 +1,8 @@
 package com.vestrin.members;
 
-public class Member {
+import java.io.Serializable;
+
+public class Member implements Serializable {
 
     private String ID; //TO DO: generera random ID vid skapning av member.
     private String name;

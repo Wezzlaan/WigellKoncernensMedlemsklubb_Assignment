@@ -1,9 +1,15 @@
 package com.vestrin;
 
+import com.vestrin.items.Item;
+import com.vestrin.items.Keyboard;
 import com.vestrin.items.Monitor;
 import com.vestrin.items.PC;
+import com.vestrin.members.Member;
+import com.vestrin.storage.FileWriter;
 import com.vestrin.storage.Inventory;
+import com.vestrin.storage.MemberRegistry;
 
+import java.io.File;
 import java.io.IOException;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -11,37 +17,16 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        /*Member member = new Member("Test Tester", "144325");
+        String inventoryPath = "inventory.dat";
+        String memberPath = "members.dat";
 
-        member.setRank(Ranks.NOOB);*/
+        FileWriter fileWriter = new FileWriter();
 
-        //System.out.println("Namn: " + member.getName() + "\nID: " + member.getID() + "\nRank: " + member.getRank());
+        MemberRegistry memberRegistry = fileWriter.loadMemberRegistry(memberPath);
+        Inventory inventoryDB = fileWriter.loadInventory(inventoryPath);
 
-       /* Monitor monitor = new Monitor ("Q27G3XMN", "AOC", 149.0, "453153");
-
-        PC gamingPC = new PC ("Max Bite Extreme", "SharkGaming", 399, "532432");*/
-
-        //System.out.println(monitor.formattedName() + " " + monitor.getItemID() + " " + monitor.getPrice() + " " + monitor.getItemType());
-
-        /*Inventory inventory = new Inventory();
-
-        inventory.addItem(gamingPC);
-        inventory.addItem(monitor);
-
-        try {
-            inventory.writeToFile("inventory.dat");
-        }
-        catch(IOException e)
-        {
-            System.out.println("Något gick fel.");
-        }*/
-
-        Inventory inventoryDb = Inventory.loadFromFile("inventory.dat");
-        inventoryDb.getItems().forEach(System.out::println);
-
-
-
-
+        memberRegistry.getMembers().forEach(System.out::println);
+        inventoryDB.getItems().forEach(System.out::println);
 
     }
 }

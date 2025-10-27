@@ -2,14 +2,14 @@ package com.vestrin.storage;
 
 import com.vestrin.members.Member;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class MemberRegistry {
+public class MemberRegistry implements Serializable {
 
     private List<Member> members;
 
-    public MemberRegistry()
-    {
+    public MemberRegistry() {
         this.members = new ArrayList<>();
     }
     /**

@@ -18,7 +18,7 @@ public class Inventory implements Serializable {
      * @param path local "Database" path file.
      * @throws IOException ...
      */
-    public void writeToFile(String path) throws IOException
+    /*public void writeToFile(String path) throws IOException
     {
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path)))
         {
@@ -26,11 +26,11 @@ public class Inventory implements Serializable {
         }
     }
 
-    /**
+    *//**
      * @param path local "Database" path file.
      * @return Inventory "database".
      * @throws IOException ...
-     */
+     *//*
     public static Inventory loadFromFile(String path) throws IOException
     {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))){
@@ -38,7 +38,7 @@ public class Inventory implements Serializable {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
     /**
      * @param item Specify new item to be stored in Inventory.
