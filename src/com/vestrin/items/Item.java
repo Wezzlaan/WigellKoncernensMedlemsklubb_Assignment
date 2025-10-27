@@ -1,6 +1,8 @@
 package com.vestrin.items;
 
-public abstract class Item {
+import java.io.Serializable;
+
+public abstract class Item implements Serializable {
 
     private String model;
     private String brand;

@@ -2,15 +2,42 @@ package com.vestrin.storage;
 
 import com.vestrin.items.Item;
 
+import java.io.*;
 import java.util.*;
 
-public class Inventory {
+public class Inventory implements Serializable {
 
     private List<Item> items;
 
     public Inventory()
     {
         this.items = new ArrayList<>();
+    }
+
+    /**
+     * @param path local "Database" path file.
+     * @throws IOException ...
+     */
+    public void writeToFile(String path) throws IOException
+    {
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path)))
+        {
+            oos.writeObject(this);
+        }
+    }
+
+    /**
+     * @param path local "Database" path file.
+     * @return Inventory "database".
+     * @throws IOException ...
+     */
+    public static Inventory loadFromFile(String path) throws IOException
+    {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))){
+            return (Inventory) ois.readObject();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

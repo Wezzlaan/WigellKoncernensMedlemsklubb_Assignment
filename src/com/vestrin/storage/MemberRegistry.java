@@ -12,7 +12,6 @@ public class MemberRegistry {
     {
         this.members = new ArrayList<>();
     }
-
     /**
      * @param newMember Specify new member to be stored in Member Registry.
      */
@@ -32,7 +31,6 @@ public class MemberRegistry {
     {
         return Collections.unmodifiableList(this.members);
     }
-
     /**
      * @param member Member to remove from List.
      */
