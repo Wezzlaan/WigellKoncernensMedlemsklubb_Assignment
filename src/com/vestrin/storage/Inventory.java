@@ -1,81 +1,59 @@
 package com.vestrin.storage;
 
-import com.vestrin.items.Item;
+import com.vestrin.entities.Item;
 
 import java.io.*;
 import java.util.*;
 
 public class Inventory implements Serializable {
 
-    private List<Item> items;
+    private final HashMap<String, Item> items;
 
-    public Inventory()
-    {
-        this.items = new ArrayList<>();
+    public Inventory(){
+        this.items = new HashMap<>();
     }
-
-    /**
-     * @param path local "Database" path file.
-     * @throws IOException ...
-     */
-    /*public void writeToFile(String path) throws IOException
-    {
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path)))
-        {
-            oos.writeObject(this);
-        }
-    }
-
-    *//**
-     * @param path local "Database" path file.
-     * @return Inventory "database".
-     * @throws IOException ...
-     *//*
-    public static Inventory loadFromFile(String path) throws IOException
-    {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))){
-            return (Inventory) ois.readObject();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }*/
-
     /**
      * @param item Specify new item to be stored in Inventory.
      */
     public void addItem(Item item)
     {
-        if (item != null) {
-            items.add(item);
-        }
-        else {
+        if (item == null) {
             throw new IllegalArgumentException("FEL: Kunde inte lägga till objekt. Orsak: Objekt var 'Null'.");
         }
+        items.put(item.getItemID(), item);
     }
-
     /**
      * @return Unmodifiable version of Inventory List.
      */
     public List<Item> getItems()
     {
-        return Collections.unmodifiableList(this.items);
+        return List.copyOf(this.items.values());
     }
 
-    public void removeFirst()
-    {
-        if (items.isEmpty())
-        {
-            throw new NoSuchElementException("FEL! Kunde inte ta bort första objektet i listan. Orsak: 'Inventory' är tomt.");
-        }
-        items.removeFirst();
+    /**RETURNS A SINGLE ITEM.
+     * @param itemID ID of item to find.
+     * @return Found item.
+     */
+    public Item getSingleItem(String itemID){
+        return this.items.get(itemID);
     }
 
     public void remove(Item item)
     {
-        if (items.isEmpty())
-        {
+        if (item == null){
+            System.out.println("FEL: Medlem kan inte vara 'null'.");
+            return;
+        }
+        if (items.isEmpty()) {
             throw new NoSuchElementException("FEL! Kunde inte ta bort objektet i listan. Orsak: 'Inventory' är tomt.");
         }
-        this.items.remove(item);
+        this.items.remove(item.getItemID());
+    }
+
+    public boolean containsItem(String ItemID){
+        if (ItemID == null){
+            return false;
+        }
+        return this.items.containsKey(ItemID);
     }
 }

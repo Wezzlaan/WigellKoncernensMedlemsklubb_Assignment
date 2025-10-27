@@ -1,4 +1,4 @@
-package com.vestrin.items;
+package com.vestrin.entities;
 
 public class Console extends Item{
 

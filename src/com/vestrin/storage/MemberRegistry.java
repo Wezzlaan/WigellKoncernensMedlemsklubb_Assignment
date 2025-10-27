@@ -7,39 +7,52 @@ import java.util.*;
 
 public class MemberRegistry implements Serializable {
 
-    private List<Member> members;
+    private final HashMap<String, Member> members;
 
     public MemberRegistry() {
-        this.members = new ArrayList<>();
+        this.members = new HashMap<>();
     }
     /**
      * @param newMember Specify new member to be stored in Member Registry.
      */
-    public void addNew(Member newMember)
-    {
-        if (newMember != null){
-            members.add(newMember);
-        }
-        else{
+    public void addNew(Member newMember) {
+        if (newMember == null){
             throw new IllegalArgumentException("FEL: Kunde inte lägga till användare. Orsak: Användare var 'Null'");
         }
+        members.put(newMember.getID(), newMember);
     }
     /**
      * @return Unmodifiable version of Member List.
      */
     public List<Member> getMembers()
     {
-        return Collections.unmodifiableList(this.members);
+        return List.copyOf(this.members.values());
     }
     /**
      * @param member Member to remove from List.
      */
     public void remove(Member member)
     {
-        if (members.isEmpty())
-        {
-            throw new NoSuchElementException("FEL: Kunde inte ta bort medlem ur listan. Orsak: 'MemberRegistry' är tomt.");
+        if (member == null){
+            System.out.println("FEL: Medlem kan inte vara 'null'.");
+            return;
         }
-        this.members.remove(member);
+        if (members.isEmpty()){
+            throw new NoSuchElementException("FEL: Kunde inte ta bort medlem. Orsak: 'MemberRegistry' är tomt. ");
+        }
+
+        this.members.remove(member.getID());
     }
+
+    /**
+     * @param ID Of user to find.
+     * @return true/false.
+     */
+    public boolean containsMember(String ID){
+        if (ID == null){
+            return false;
+        }
+        return this.members.containsKey(ID);
+    }
+
 }

@@ -1,32 +1,23 @@
 package com.vestrin;
 
-import com.vestrin.items.Item;
-import com.vestrin.items.Keyboard;
-import com.vestrin.items.Monitor;
-import com.vestrin.items.PC;
+import com.vestrin.controllers.InventoryController;
+import com.vestrin.controllers.MembersController;
+import com.vestrin.entities.Item;
+import com.vestrin.entities.Keyboard;
 import com.vestrin.members.Member;
-import com.vestrin.storage.FileWriter;
-import com.vestrin.storage.Inventory;
-import com.vestrin.storage.MemberRegistry;
 
-import java.io.File;
-import java.io.IOException;
-
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        String inventoryPath = "inventory.dat";
-        String memberPath = "members.dat";
+        MembersController membersController = new MembersController();
+        InventoryController inventoryController = new InventoryController();
 
-        FileWriter fileWriter = new FileWriter();
+        inventoryController.addNewItem(new Keyboard("Scope II", "Asus", 99.0, "534232"));
+        //KOLLA OM DET GÅR ATT LÄGGA TILL ANTAL AV ETT VISST OBJEKT I INVENTORY!!
+        inventoryController.addNewItem(new Keyboard("ROG Azoth", "Asus", 99.0, "514232"));
 
-        MemberRegistry memberRegistry = fileWriter.loadMemberRegistry(memberPath);
-        Inventory inventoryDB = fileWriter.loadInventory(inventoryPath);
-
-        memberRegistry.getMembers().forEach(System.out::println);
-        inventoryDB.getItems().forEach(System.out::println);
+        inventoryController.printAll();
+        membersController.printAll();
 
     }
 }

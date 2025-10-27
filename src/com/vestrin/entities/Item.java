@@ -1,14 +1,15 @@
-package com.vestrin.items;
+package com.vestrin.entities;
 
 import java.io.Serializable;
 
 public abstract class Item implements Serializable {
 
-    private String model;
-    private String brand;
-    private double price;
-    private ItemType type;
-    private String itemID;
+    protected String model;
+    protected String brand;
+    protected double price;
+    protected ItemType type;
+    protected String itemID;
+    protected int quantity;
 
     public Item() {}
 
@@ -102,5 +103,13 @@ public abstract class Item implements Serializable {
     public String toString()
     {
         return this.formattedName() + "\n" + "Artikelnummer: " + this.itemID + "\n" + this.price + ";-";
+    }
+
+    public void addQuantity(int amount) {
+        if (amount > 0) {
+            this.quantity += amount;
+            System.out.println("La till " + amount + "enheter. Nytt lagersaldo för " +
+                                this.formattedName() + ": " + this.quantity);
+        }
     }
 }
