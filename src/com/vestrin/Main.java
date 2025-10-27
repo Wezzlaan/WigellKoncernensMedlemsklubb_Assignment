@@ -1,39 +1,32 @@
 package com.vestrin;
 
 import com.vestrin.items.Item;
+import com.vestrin.items.Keyboard;
 import com.vestrin.items.Monitor;
-import com.vestrin.items.Mouse;
 import com.vestrin.items.PC;
 import com.vestrin.members.Member;
-import com.vestrin.members.Ranks;
+import com.vestrin.storage.FileWriter;
 import com.vestrin.storage.Inventory;
-import com.vestrin.storage.InventoryFileWriter;
+import com.vestrin.storage.MemberRegistry;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        /*Member member = new Member("Test Tester", "144325");
+        String inventoryPath = "inventory.dat";
+        String memberPath = "members.dat";
 
-        member.setRank(Ranks.NOOB);*/
+        FileWriter fileWriter = new FileWriter();
 
-        /*System.out.println("Namn: " + member.getName() + "\nID: " + member.getID() + "\nRank: " + member.getRank());
+        MemberRegistry memberRegistry = fileWriter.loadMemberRegistry(memberPath);
+        Inventory inventoryDB = fileWriter.loadInventory(inventoryPath);
 
-        Monitor monitor = new Monitor ("Q27G3XMN", "AOC", 149.0, "453153");
-
-        System.out.println(monitor.formattedName() + " " + monitor.getItemID() + " " + monitor.getPrice() + " " + monitor.getItemType());*/
-
-        //Inventory inventory = new Inventory();
-
+        memberRegistry.getMembers().forEach(System.out::println);
+        inventoryDB.getItems().forEach(System.out::println);
 
     }
-
-
-    /*TO DO:
-    * LÄGG TILL FLER SORTERS ITEMS
-    * NY BRANCH FÖR BYGGA FUNKTIONALITET FÖR INVENTORY AV ITEMS*/
 }
