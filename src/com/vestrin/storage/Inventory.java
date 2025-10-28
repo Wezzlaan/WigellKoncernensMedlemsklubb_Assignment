@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Inventory implements Serializable {
 
-    private final HashMap<String, Item> items;
+    private final Map<String, List<Item>> items;
 
     public Inventory(){
         this.items = new HashMap<>();
@@ -17,17 +17,18 @@ public class Inventory implements Serializable {
      */
     public void addItem(Item item)
     {
-        if (item == null) {
-            throw new IllegalArgumentException("FEL: Kunde inte lägga till objekt. Orsak: Objekt var 'Null'.");
+        String articleID = item.getItemID().toString();
+        if (!items.containsKey(articleID)) {
+            items.put(articleID, new ArrayList<>());
         }
-        items.put(item.getItemID(), item);
+        items.get(articleID).add(item);
     }
     /**
      * @return Unmodifiable version of Inventory List.
      */
-    public List<Item> getItems()
+    public Map<String, List<Item>> getItems()
     {
-        return List.copyOf(this.items.values());
+        return Collections.unmodifiableMap(this.items);
     }
 
     /**RETURNS A SINGLE ITEM.
@@ -35,7 +36,7 @@ public class Inventory implements Serializable {
      * @return Found item.
      */
     public Item getSingleItem(String itemID){
-        return this.items.get(itemID);
+        return (Item) this.items.get(itemID);
     }
 
     public void remove(Item item)

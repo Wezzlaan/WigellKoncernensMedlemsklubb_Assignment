@@ -1,6 +1,7 @@
 package com.vestrin.entities;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public abstract class Item implements Serializable {
 
@@ -8,8 +9,7 @@ public abstract class Item implements Serializable {
     protected String brand;
     protected double price;
     protected ItemType type;
-    protected String itemID;
-    protected int quantity;
+    protected UUID itemID;
 
     public Item() {}
 
@@ -18,19 +18,16 @@ public abstract class Item implements Serializable {
      * @param name name of Item
      * @param brand brand of item
      * @param price price of item
-     * @param itemID ID number of item
      */
-    public Item(ItemType itemType, String brand, String name, double price, String itemID)
-    {
+    public Item(ItemType itemType, String brand, String name, double price){
         this.type = itemType;
         this.brand = brand;
         this.model = name;
+        this.itemID = UUID.randomUUID();
         this.price = price;
-        this.itemID = itemID;
     }
 
-    public enum ItemType
-    {
+    public enum ItemType {
         PERIPHERALS,
         HARDWARE
     }
@@ -75,17 +72,9 @@ public abstract class Item implements Serializable {
         this.price = price;
     }
 
-    public String getItemID()
+    public UUID getItemID()
     {
         return this.itemID;
-    }
-
-    /**
-     * @param itemID set new item ID as String.
-     */
-    public void setItemID(String itemID)
-    {
-        this.itemID = itemID;
     }
 
     /**
@@ -102,14 +91,6 @@ public abstract class Item implements Serializable {
     @Override
     public String toString()
     {
-        return this.formattedName() + "\n" + "Artikelnummer: " + this.itemID + "\n" + this.price + ";-";
-    }
-
-    public void addQuantity(int amount) {
-        if (amount > 0) {
-            this.quantity += amount;
-            System.out.println("La till " + amount + "enheter. Nytt lagersaldo för " +
-                                this.formattedName() + ": " + this.quantity);
-        }
+        return this.formattedName() + "\n" + "Kostnad (utan medlemsavdrag): " + this.price + ";-";
     }
 }

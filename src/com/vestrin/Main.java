@@ -12,12 +12,7 @@ public class Main {
         MembersController membersController = new MembersController();
         InventoryController inventoryController = new InventoryController();
 
-        inventoryController.addNewItem(new Keyboard("Scope II", "Asus", 99.0, "534232"));
-        //KOLLA OM DET GÅR ATT LÄGGA TILL ANTAL AV ETT VISST OBJEKT I INVENTORY!!
-        inventoryController.addNewItem(new Keyboard("ROG Azoth", "Asus", 99.0, "514232"));
-
         inventoryController.printAll();
         membersController.printAll();
-
     }
 }

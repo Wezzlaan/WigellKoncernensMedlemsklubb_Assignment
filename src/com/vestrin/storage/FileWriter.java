@@ -52,5 +52,4 @@ public class FileWriter {
             throw e;
         }
     }
-
 }

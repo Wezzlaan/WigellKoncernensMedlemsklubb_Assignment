@@ -8,17 +8,17 @@ public class Member implements Serializable {
     private String name;
     private Ranks rank;
     private MemberHistory memberHistory;
+    private ID_Randomizer randomizer = new ID_Randomizer();
 
     public Member() {}
 
     /**
      * @param name of Member
-     * @param ID belonging to Member
      */
-    public Member(String name, String ID)
+    public Member(String name)
     {
         this.name = name;
-        this.ID = ID;
+        this.ID = randomizer.generate();
     }
 
     /**

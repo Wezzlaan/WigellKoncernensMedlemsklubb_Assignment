@@ -7,6 +7,8 @@ import com.vestrin.storage.MemberRegistry;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public class InventoryController {
 
@@ -38,9 +40,17 @@ public class InventoryController {
     }
 
     public void printAll() {
-        if (!inventory.getItems().isEmpty()){
-            inventory.getItems().forEach(System.out::println);
+        Map<String, List<Item>> allItems = inventory.getItems();
+
+        if (!allItems.isEmpty()){
+            for (Map.Entry<String, List<Item>> entry : allItems.entrySet()) {
+                String articleId = entry.getKey();
+                List<Item> itemList = entry.getValue();
+                System.out.println("\nID: " + articleId);
+                for (Item item : itemList){
+                    System.out.println(item);
+                }
+            }
         }
     }
-
 }
