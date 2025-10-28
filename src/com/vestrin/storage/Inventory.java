@@ -42,13 +42,13 @@ public class Inventory implements Serializable {
     public void remove(Item item)
     {
         if (item == null){
-            System.out.println("FEL: Medlem kan inte vara 'null'.");
+            System.err.println("FEL: Objekt kan inte vara 'null'.");
             return;
         }
         if (items.isEmpty()) {
             throw new NoSuchElementException("FEL! Kunde inte ta bort objektet i listan. Orsak: 'Inventory' är tomt.");
         }
-        this.items.remove(item.getItemID());
+        this.items.remove(item.getItemID().toString());
     }
 
     public boolean containsItem(String ItemID){

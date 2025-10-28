@@ -3,6 +3,7 @@ package com.vestrin.storage;
 import com.vestrin.members.Member;
 
 import java.io.Serializable;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class MemberRegistry implements Serializable {
@@ -34,7 +35,7 @@ public class MemberRegistry implements Serializable {
     public void remove(Member member)
     {
         if (member == null){
-            System.out.println("FEL: Medlem kan inte vara 'null'.");
+            System.err.println("FEL: Medlem kan inte vara 'null'.");
             return;
         }
         if (members.isEmpty()){
@@ -53,6 +54,16 @@ public class MemberRegistry implements Serializable {
             return false;
         }
         return this.members.containsKey(ID);
+    }
+
+    public Member getSingleMember(String ID){
+        if (containsMember(ID)) {
+            return members.get(ID);
+        }
+        else {
+            System.err.println("Kunde inte hitta medlem med ID: " + ID);
+            return null;
+        }
     }
 
 }

@@ -10,6 +10,7 @@ public abstract class Item implements Serializable {
     protected double price;
     protected ItemType type;
     protected UUID itemID;
+    protected boolean isRented;
 
     public Item() {}
 
@@ -79,6 +80,10 @@ public abstract class Item implements Serializable {
     {
         return this.itemID;
     }
+
+    public String itemIDToString(){
+        return itemID.toString();
+    }
     /**
      * @return formatted name of product.
      */
@@ -93,6 +98,17 @@ public abstract class Item implements Serializable {
     @Override
     public String toString()
     {
-        return this.formattedName() + "\n" + "Kostnad (utan medlemsavdrag): " + this.price + ";-";
+        return this.formattedName() + "\n" + "Kostnad (utan medlemsavdrag): " + this.price + ";-" + "\nUtlånad: " + this.isRented;
+    }
+
+    public boolean getIsRented(){
+        return isRented;
+    }
+
+    /**
+     * @param rentedStatus true/false
+     */
+    public void setIsRented(Boolean rentedStatus){
+        this.isRented = rentedStatus;
     }
 }

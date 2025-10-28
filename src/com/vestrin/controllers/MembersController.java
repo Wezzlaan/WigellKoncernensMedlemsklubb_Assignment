@@ -1,11 +1,13 @@
 package com.vestrin.controllers;
 
+import com.vestrin.entities.Item;
 import com.vestrin.members.Member;
 import com.vestrin.storage.FileWriter;
 import com.vestrin.storage.MemberRegistry;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class MembersController{
@@ -49,6 +51,7 @@ public class MembersController{
             return true;
     }
 
+
     /**REMOVES MEMBER FROM REGISTRY
      * @param member Member Object
      */
@@ -61,4 +64,19 @@ public class MembersController{
             memberRegistry.getMembers().forEach(System.out::println);
         }
     }
+
+    public void printRentedItems(Member member){
+        for (Map.Entry<String, Item> entry : member.getRentedItems().entrySet()){
+            String itemId = entry.getKey();
+            Item item = entry.getValue();
+            System.out.println("ID: " + itemId + ", Föremål: " + item.formattedName());
+            }
+    }
+
+    public MemberRegistry getRegistry(){
+        return this.memberRegistry;
+    }
+
+
+
 }

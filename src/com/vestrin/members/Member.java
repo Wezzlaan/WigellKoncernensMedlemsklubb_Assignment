@@ -1,13 +1,19 @@
 package com.vestrin.members;
 
+import com.vestrin.entities.Item;
+
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Member implements Serializable {
 
-    private String ID; //TO DO: generera random ID vid skapning av member.
+    private String ID;
     private String name;
     private Ranks rank;
     private MemberHistory memberHistory;
+    private Map<String, Item> rentedItems;
 
     public Member() {}
 
@@ -19,8 +25,19 @@ public class Member implements Serializable {
         this.name = name;
         ID_Randomizer randomizer = new ID_Randomizer();
         this.ID = randomizer.generate();
+        this.rentedItems = new HashMap<>();
     }
 
+    public Map<String, Item> getRentedItems(){
+        return rentedItems;
+    }
+
+    /**ADDS ITEMS TO MAP RENTED ITEMS.
+     * @param item item to add to rental.
+     */
+    public void setRentedItems(Item item){
+        rentedItems.put(item.itemIDToString(), item);
+    }
     /**
      * @return Member ID
      */
@@ -71,4 +88,6 @@ public class Member implements Serializable {
     {
         return this.name + "\n" + this.ID + "\n" + this.rank;
     }
+
+
 }

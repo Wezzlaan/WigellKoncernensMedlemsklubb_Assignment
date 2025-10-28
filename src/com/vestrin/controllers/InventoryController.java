@@ -12,11 +12,25 @@ import java.util.Map;
 
 public class InventoryController {
 
-    private final FileWriter fileWriter;
+    private FileWriter fileWriter;
     private Inventory inventory;
     private String filePath = "inventory.dat";
 
     public InventoryController(){
+        /*this.fileWriter = new FileWriter();
+        try {
+            this.inventory = fileWriter.loadInventory(filePath);
+            System.out.println("Befintlig lagerlista laddad.");
+        } catch (FileNotFoundException e) {
+            this.inventory = new Inventory();
+            System.out.println("Ingen lagerlista hittades. Skapar en ny...");
+        } catch (IOException e){
+            e.printStackTrace();
+            this.inventory = new Inventory();
+        }*/
+    }
+
+    public void load(){
         this.fileWriter = new FileWriter();
         try {
             this.inventory = fileWriter.loadInventory(filePath);
@@ -52,5 +66,13 @@ public class InventoryController {
                 }
             }
         }
+    }
+
+    public void removeItem(Item item){
+        inventory.remove(item);
+    }
+
+    public Inventory getAllItems(){
+        return this.inventory;
     }
 }
