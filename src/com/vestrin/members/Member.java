@@ -13,12 +13,12 @@ public class Member implements Serializable {
 
     /**
      * @param name of Member
-     * @param ID belonging to Member
      */
-    public Member(String name, String ID)
+    public Member(String name)
     {
         this.name = name;
-        this.ID = ID;
+        ID_Randomizer randomizer = new ID_Randomizer();
+        this.ID = randomizer.generate();
     }
 
     /**
