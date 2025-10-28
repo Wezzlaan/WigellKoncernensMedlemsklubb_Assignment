@@ -8,7 +8,6 @@ public class Member implements Serializable {
     private String name;
     private Ranks rank;
     private MemberHistory memberHistory;
-    private ID_Randomizer randomizer = new ID_Randomizer();
 
     public Member() {}
 
@@ -18,6 +17,7 @@ public class Member implements Serializable {
     public Member(String name)
     {
         this.name = name;
+        ID_Randomizer randomizer = new ID_Randomizer();
         this.ID = randomizer.generate();
     }
 

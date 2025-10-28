@@ -72,11 +72,13 @@ public abstract class Item implements Serializable {
         this.price = price;
     }
 
+    /**
+     * @return GUID of Item
+     */
     public UUID getItemID()
     {
         return this.itemID;
     }
-
     /**
      * @return formatted name of product.
      */

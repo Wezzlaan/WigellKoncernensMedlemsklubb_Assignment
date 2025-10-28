@@ -27,6 +27,10 @@ public class MembersController{
         }
     }
 
+    /**ADDS NEW MEMBER TO REGISTRY
+     * @param member member object
+     * @return true/false.
+     */
     public boolean addNewMember(Member member){
         String ID = member.getID();
 
@@ -45,6 +49,9 @@ public class MembersController{
             return true;
     }
 
+    /**REMOVES MEMBER FROM REGISTRY
+     * @param member Member Object
+     */
     public void remove(Member member) {
         memberRegistry.remove(member);
     }
