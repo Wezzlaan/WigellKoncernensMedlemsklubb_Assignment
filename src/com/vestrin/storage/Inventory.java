@@ -39,6 +39,10 @@ public class Inventory implements Serializable {
         return (Item) this.items.get(itemID);
     }
 
+    /**
+     * REMOVES ITEM FROM INVENTORY
+     * @param item Item to remove
+     */
     public void remove(Item item)
     {
         if (item == null){

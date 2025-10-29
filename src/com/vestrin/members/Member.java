@@ -20,12 +20,13 @@ public class Member implements Serializable {
     /**
      * @param name of Member
      */
-    public Member(String name)
+    public Member(String name, Ranks rank)
     {
         this.name = name;
         ID_Randomizer randomizer = new ID_Randomizer();
         this.ID = randomizer.generate();
         this.rentedItems = new HashMap<>();
+        this.rank = rank;
     }
 
     public Map<String, Item> getRentedItems(){

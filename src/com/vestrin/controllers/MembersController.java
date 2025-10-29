@@ -2,11 +2,14 @@ package com.vestrin.controllers;
 
 import com.vestrin.entities.Item;
 import com.vestrin.members.Member;
+import com.vestrin.members.Ranks;
+import com.vestrin.searchEngine.SearchEngine;
 import com.vestrin.storage.FileWriter;
 import com.vestrin.storage.MemberRegistry;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -14,9 +17,14 @@ public class MembersController{
     private final FileWriter fileWriter;
     private MemberRegistry memberRegistry;
     private String filePath = "members.dat";
+    private SearchEngine searchEngine;
 
+    /**
+     * CONSTRUCTOR LOADS MEMBER REGISTRY FROM 'members.dat' FILE, IF AVAILALBE. WILL CREATE NEW FILE IF NOT.
+     */
     public MembersController() {
         this.fileWriter = new FileWriter();
+        this.searchEngine = new SearchEngine();
         try {
             this.memberRegistry = fileWriter.loadMemberRegistry(filePath);
             System.out.println("Befintlig medlemslista laddad.");
@@ -31,27 +39,15 @@ public class MembersController{
 
     /**ADDS NEW MEMBER TO REGISTRY
      * @param member member object
-     * @return true/false.
      */
-    public boolean addNewMember(Member member){
-        String ID = member.getID();
-
-        for (Member members : memberRegistry.getMembers()){
-            if (memberRegistry.containsMember(ID)) {
-                System.out.println("Medlem med detta ID finns redan i registret.");
-                return false;
-            }
+    private void addNewMember(Member member){
+        try {
+            memberRegistry.addNew(member);
+            fileWriter.writeToFile("members.dat", memberRegistry);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-            try {
-                memberRegistry.addNew(member);
-                fileWriter.writeToFile("members.dat", memberRegistry);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            return true;
     }
-
-
     /**REMOVES MEMBER FROM REGISTRY
      * @param member Member Object
      */
@@ -59,24 +55,54 @@ public class MembersController{
         memberRegistry.remove(member);
     }
 
-    public void printAll() {
+    /*public void printAll() {
         if (!memberRegistry.getMembers().isEmpty()) {
             memberRegistry.getMembers().forEach(System.out::println);
         }
-    }
-
-    public void printRentedItems(Member member){
-        for (Map.Entry<String, Item> entry : member.getRentedItems().entrySet()){
-            String itemId = entry.getKey();
-            Item item = entry.getValue();
-            System.out.println("ID: " + itemId + ", Föremål: " + item.formattedName());
-            }
-    }
+    }*/
 
     public MemberRegistry getRegistry(){
         return this.memberRegistry;
     }
 
+    /**Handles choices for different ranks for Member. Switch/Case returns chosen Rank.
+     * @param choice
+     * @return Chosen rank.
+     */
+    public Ranks setRank(char choice){
+        return switch (choice) {
+            case '1' -> Ranks.NOOB;
+            case '2' -> Ranks.CASUAL;
+            case '3' -> Ranks.VETERAN;
+            case '4' -> Ranks.ELITE;
+            default -> throw new InputMismatchException("Ogiltigt val för rank. Välj 1-4.");
+        };
+    }
 
+    /**
+     * Creates, adds and returns a new member to MemberRegistry.
+     * @param name Full name of new member.
+     * @param choice For the switch to set rank.
+     * @return created member object.
+     */
+    public Member createNewMember(String name, char choice){
+        Ranks rank = setRank(choice);
+        Member member = new Member(name, rank);
+        addNewMember(member);
+        return member;
+    }
+
+    /**
+     * @param ID ID of member to get.
+     * @return found member.
+     */
+    public Member getSingleMember(String ID){
+        if (memberRegistry.containsMember(ID)) {
+            return memberRegistry.getMembers().get(ID);
+        }
+        else {
+            throw new NoSuchElementException ("Kunde inte hitta medlem med ID: " + ID);
+        }
+    }
 
 }

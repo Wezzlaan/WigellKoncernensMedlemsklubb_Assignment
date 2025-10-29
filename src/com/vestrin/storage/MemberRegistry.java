@@ -23,11 +23,11 @@ public class MemberRegistry implements Serializable {
         members.put(newMember.getID(), newMember);
     }
     /**
-     * @return Unmodifiable version of Member List.
+     * @return Members registry as HashMap with <String, Member>.
      */
-    public List<Member> getMembers()
+    public HashMap<String, Member> getMembers()
     {
-        return List.copyOf(this.members.values());
+        return this.members;
     }
     /**
      * @param member Member to remove from List.
@@ -54,16 +54,6 @@ public class MemberRegistry implements Serializable {
             return false;
         }
         return this.members.containsKey(ID);
-    }
-
-    public Member getSingleMember(String ID){
-        if (containsMember(ID)) {
-            return members.get(ID);
-        }
-        else {
-            System.err.println("Kunde inte hitta medlem med ID: " + ID);
-            return null;
-        }
     }
 
 }
