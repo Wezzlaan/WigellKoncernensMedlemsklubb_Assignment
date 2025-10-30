@@ -3,7 +3,7 @@ package com.vestrin.application;
 import com.vestrin.controllers.InventoryController;
 import com.vestrin.controllers.MembersController;
 import com.vestrin.members.Member;
-import com.vestrin.searchEngine.SearchEngine;
+
 
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
@@ -12,7 +12,6 @@ public class Program {
     MembersController membersController;
     InventoryController inventoryController;
     ConsoleView view = new ConsoleView();
-    SearchEngine search = new SearchEngine();
 
     public Program(){
         membersController = new MembersController();
@@ -20,7 +19,6 @@ public class Program {
     }
 
     public void mainMenu(){
-        System.out.println("------TV-SPELS KLUBBEN------");
         while (true) {
             view.printMainMenu();
             try {
@@ -32,10 +30,14 @@ public class Program {
                         } catch (InputMismatchException e){
                             System.err.println("Kunde inte lägga till ny medlem. Orsak: " + e.getMessage());
                         }
-                    case '2': //Sök efter medlem
+                        break;
+                    case '2': //Sök efter medlem och hantera
                         try {
                             Member memberToFind = membersController.getSingleMember(view.idInputPrompt());
                             view.printFoundMembers(memberToFind);
+                            handleMemberMenu(memberToFind);
+
+                            break;
                         } catch (NoSuchElementException e){
                             System.err.println(e.getMessage());
                         }
@@ -45,4 +47,26 @@ public class Program {
             }
         }
     }
+
+    private void handleMemberMenu(Member member){
+        boolean isInMenu = true;
+
+        while (isInMenu){
+            try {
+                switch (view.memberConfigPrompt()) {
+                    case '1':
+                        String currentRank = member.getRank().toString();
+                        char rankChoice = view.memberRankPrompt();
+                        member.setRank(membersController.chooseRank(rankChoice));
+                        String newRank = member.getRank().toString();
+                        System.out.println("\nMedlemsnivå ändrad: " + currentRank + " -> " + newRank);
+                        break;
+                }
+            } catch (InputMismatchException e){
+                System.err.println("Ett fel inträffade. Orsak: " + e.getMessage());
+            }
+        }
+    }
+
+
 }

@@ -9,25 +9,28 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class ConsoleView {
-    private Scanner scanner;
+    private final Scanner scanner;
+    private final ConsoleColors color = new ConsoleColors();
     protected ConsoleView(){
         scanner = new Scanner(System.in);
     }
 
     protected void printMainMenu() {
-        System.out.println("\nNavigera med [1], [2], [3], [4] och [ENTER]:");
+        System.out.println(color.applyCyan("\n------TV-SPELS KLUBBEN------"));
+        System.out.println(color.applyCyan("\nNavigera med [1], [2], [3], [4], [5], [0] och [ENTER]:"));
         System.out.println("\n[1] Lägg till medlem " +
-                "\n[2] Sök medlem " +
-                "\n[3] Hantera medlem" +
-                "\n[4] Se lagerstatus" +
-                "\n[5] Boka/Avsluta uthyrning" +
-                "\n[6] Kontrollera/summera intäkter");
+                "\n[2] Sök/hantera medlem " +
+                "\n[3] Se lagerstatus" +
+                "\n[4] Boka/Avsluta uthyrning" +
+                "\n[5] Kontrollera/summera intäkter" +
+                "\n[0] Avsluta");
+        System.out.print(color.applyCyan("\nVal sedan [ENTER]: "));
     }
 
     protected char getMenuChoice(){
         try {
             char input = scanner.nextLine().charAt(0);
-            if (input >= '1' && input <= '9') {
+            if (input >= '0' && input <= '9') {
                 return input;
             } else {
                 throw new InputMismatchException("FEL: " + input + " är inte en godkänd inmatning.");
@@ -44,9 +47,9 @@ public class ConsoleView {
      */
     protected String newMemberNamePrompt(){
         StringBuilder memberName = new StringBuilder();
-        System.out.print("Ange förnamn: ");
+        System.out.print(color.applyCyan("Ange förnamn: "));
         String firstName = scanner.nextLine().trim().toUpperCase();
-        System.out.print("Ange efternamn: ");
+        System.out.print(color.applyCyan("Ange efternamn: "));
         String lastName = scanner.nextLine().trim().toUpperCase();
         memberName.append(firstName).append(" ").append(lastName);
 
@@ -71,7 +74,7 @@ public class ConsoleView {
         String ID = member.getID();
         Ranks rank = member.getRank();
 
-        System.out.println("\nMedlem tillagd: " + "\n" + name + "\nMedlems ID: " + ID + "\nMedlems-rank: " + rank);
+        System.out.println(color.applyGreen("\nMedlem tillagd: " + "\n" + name + "\nMedlems ID: " + ID + "\nMedlems-rank: " + rank));
     }
 
     protected void printRentedItems(Member member){
@@ -82,17 +85,40 @@ public class ConsoleView {
         }
     }
 
+    /**
+     * @return Identifier of member to find as String.
+     */
     protected String idInputPrompt(){
-        System.out.print("\nMedlems-ID: ");
+        System.out.println(color.applyCyan("\n------SÖK ANVÄNDARE------"));
+        System.out.println("Du kan välja mellan att ange medlemmens ID eller namn.");
+        System.out.print(color.applyCyan("\nSkriv medlemmens ID ELLER namn, sedan [ENTER]: "));
         return scanner.nextLine().trim();
     }
 
+    /**
+     * Prints details about member.
+     * @param member Found member.
+     */
     protected void printFoundMembers(Member member){
         String name = member.getName();
         String ID = member.getID();
         Ranks rank = member.getRank();
 
-        System.out.println("\nMedlem hittad: " + "\n" + name + "\nMedlems ID: " + ID + "\nMedlems-rank: " + rank);
+        System.out.println(color.applyGreen("\nMedlem hittad: " + "\n" + name + "\nMedlems ID: " + ID + "\nMedlems-rank: " + rank));
+    }
+
+    /**
+     * Prompts options for configuring member
+     * @return Choice as char.
+     */
+    protected char memberConfigPrompt(){
+        System.out.println(color.applyCyan("\nNavigera med [1], [2], [3], [0] och [ENTER]:"));
+        System.out.println("\n[1] Ändra rank" +
+                "\n[2] Se historik" +
+                "\n[3] Se nuvarande uthyrningar" +
+                "\n[0] Tillbaka");
+        System.out.print(color.applyCyan("\nVal sedan [ENTER]: "));
+        return scanner.nextLine().charAt(0);
     }
 
 

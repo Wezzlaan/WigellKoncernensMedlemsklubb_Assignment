@@ -3,7 +3,6 @@ package com.vestrin.storage;
 import com.vestrin.members.Member;
 
 import java.io.Serializable;
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class MemberRegistry implements Serializable {
@@ -49,11 +48,24 @@ public class MemberRegistry implements Serializable {
      * @param ID Of user to find.
      * @return true/false.
      */
-    public boolean containsMember(String ID){
+    public boolean containsMemberID(String ID){
         if (ID == null){
             return false;
         }
         return this.members.containsKey(ID);
+    }
+
+    public Member containsMemberName(String name){
+        if (name == null){
+            return null;
+        }
+
+        for (Member member : members.values()){
+            if (Objects.equals(name, member.getName())){
+                return member;
+            }
+        }
+        return null;
     }
 
 }

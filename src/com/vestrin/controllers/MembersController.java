@@ -1,30 +1,27 @@
 package com.vestrin.controllers;
 
-import com.vestrin.entities.Item;
 import com.vestrin.members.Member;
 import com.vestrin.members.Ranks;
-import com.vestrin.searchEngine.SearchEngine;
 import com.vestrin.storage.FileWriter;
 import com.vestrin.storage.MemberRegistry;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InputMismatchException;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class MembersController{
     private final FileWriter fileWriter;
     private MemberRegistry memberRegistry;
     private String filePath = "members.dat";
-    private SearchEngine searchEngine;
+
 
     /**
      * CONSTRUCTOR LOADS MEMBER REGISTRY FROM 'members.dat' FILE, IF AVAILALBE. WILL CREATE NEW FILE IF NOT.
      */
     public MembersController() {
         this.fileWriter = new FileWriter();
-        this.searchEngine = new SearchEngine();
+
         try {
             this.memberRegistry = fileWriter.loadMemberRegistry(filePath);
             System.out.println("Befintlig medlemslista laddad.");
@@ -69,7 +66,7 @@ public class MembersController{
      * @param choice
      * @return Chosen rank.
      */
-    public Ranks setRank(char choice){
+    public Ranks chooseRank(char choice){
         return switch (choice) {
             case '1' -> Ranks.NOOB;
             case '2' -> Ranks.CASUAL;
@@ -86,23 +83,28 @@ public class MembersController{
      * @return created member object.
      */
     public Member createNewMember(String name, char choice){
-        Ranks rank = setRank(choice);
+        Ranks rank = chooseRank(choice);
         Member member = new Member(name, rank);
         addNewMember(member);
         return member;
     }
 
-    /**
-     * @param ID ID of member to get.
+    /**Throws NoSuchElementException if member was not found.
+     * @param identifier Identifier of member to get. Can be ID number OR name.
      * @return found member.
      */
-    public Member getSingleMember(String ID){
-        if (memberRegistry.containsMember(ID)) {
-            return memberRegistry.getMembers().get(ID);
+    public Member getSingleMember(String identifier){
+        String identifierToUpper = identifier.toUpperCase().trim();
+        if (memberRegistry.containsMemberID(identifierToUpper)){
+            return memberRegistry.getMembers().get(identifierToUpper);
         }
-        else {
-            throw new NoSuchElementException ("Kunde inte hitta medlem med ID: " + ID);
+        if (!memberRegistry.containsMemberID(identifierToUpper)){
+            Member memberByName = memberRegistry.containsMemberName(identifierToUpper);
+            if (memberByName != null){
+                return memberByName;
+            }
         }
+        throw new NoSuchElementException("Kunde inte hitta medlem med ID eller namn: " + identifier);
     }
 
 }
