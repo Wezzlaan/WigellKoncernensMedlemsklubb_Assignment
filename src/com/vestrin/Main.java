@@ -1,18 +1,12 @@
 package com.vestrin;
 
-import com.vestrin.controllers.InventoryController;
-import com.vestrin.controllers.MembersController;
-import com.vestrin.entities.Item;
-import com.vestrin.entities.Keyboard;
-import com.vestrin.members.Member;
+import com.vestrin.application.Program;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
-        MembersController membersController = new MembersController();
-        InventoryController inventoryController = new InventoryController();
+        Program program = new Program();
 
-        inventoryController.printAll();
-        membersController.printAll();
+        program.run();
     }
 }

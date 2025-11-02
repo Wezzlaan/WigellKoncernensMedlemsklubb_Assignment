@@ -5,7 +5,7 @@ import com.vestrin.members.Member;
 import java.io.Serializable;
 import java.util.*;
 
-public class MemberRegistry implements Serializable {
+public class MemberRegistry{
 
     private final HashMap<String, Member> members;
 
@@ -21,20 +21,22 @@ public class MemberRegistry implements Serializable {
         }
         members.put(newMember.getID(), newMember);
     }
+
     /**
-     * @return Unmodifiable version of Member List.
+     * @return Members registry as HashMap with <String, Member>.
      */
-    public List<Member> getMembers()
+    public HashMap<String, Member> getMembers()
     {
-        return List.copyOf(this.members.values());
+        return this.members;
     }
+
     /**
      * @param member Member to remove from List.
      */
     public void remove(Member member)
     {
         if (member == null){
-            System.out.println("FEL: Medlem kan inte vara 'null'.");
+            System.err.println("FEL: Medlem kan inte vara 'null'.");
             return;
         }
         if (members.isEmpty()){
@@ -48,11 +50,28 @@ public class MemberRegistry implements Serializable {
      * @param ID Of user to find.
      * @return true/false.
      */
-    public boolean containsMember(String ID){
+    public boolean containsMemberID(String ID){
         if (ID == null){
             return false;
         }
         return this.members.containsKey(ID);
+    }
+
+    /**
+     * Checks if a list contains a specific member, by searching for their name.
+     * @param name full name of member to find.
+     * @return member if found, null if nothing is found, or if the name parameter is empty.
+     */
+    public Member containsMemberName(String name){
+        if (name == null){
+            return null;
+        }
+        for (Member member : members.values()){
+            if (Objects.equals(name, member.getName())){
+                return member;
+            }
+        }
+        return null;
     }
 
 }

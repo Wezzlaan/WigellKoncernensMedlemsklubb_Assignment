@@ -2,12 +2,11 @@ package com.vestrin.storage;
 
 import com.vestrin.entities.Item;
 
-import java.io.*;
 import java.util.*;
 
-public class Inventory implements Serializable {
+public class Inventory {
 
-    private final Map<String, List<Item>> items;
+    private final HashMap<String, List<Item>> items;
 
     public Inventory(){
         this.items = new HashMap<>();
@@ -28,27 +27,31 @@ public class Inventory implements Serializable {
      */
     public Map<String, List<Item>> getItems()
     {
-        return Collections.unmodifiableMap(this.items);
+        return this.items;
     }
 
-    /**RETURNS A SINGLE ITEM.
+    /**RETURNS ITEMS LIST OF SPECIFIC ITEM.
      * @param itemID ID of item to find.
      * @return Found item.
      */
-    public Item getSingleItem(String itemID){
-        return (Item) this.items.get(itemID);
+    public List<Item> getSingleItemList(String itemID){
+        return this.items.get(itemID);
     }
 
+    /**
+     * REMOVES ITEM FROM INVENTORY
+     * @param item Item to remove
+     */
     public void remove(Item item)
     {
         if (item == null){
-            System.out.println("FEL: Medlem kan inte vara 'null'.");
+            System.err.println("FEL: Objekt kan inte vara 'null'.");
             return;
         }
         if (items.isEmpty()) {
             throw new NoSuchElementException("FEL! Kunde inte ta bort objektet i listan. Orsak: 'Inventory' är tomt.");
         }
-        this.items.remove(item.getItemID());
+        this.items.remove(item.getItemID().toString());
     }
 
     public boolean containsItem(String ItemID){
@@ -56,5 +59,20 @@ public class Inventory implements Serializable {
             return false;
         }
         return this.items.containsKey(ItemID);
+    }
+
+    public List<Item> containsItemName(String name){
+        if (name == null){
+            return new ArrayList<>();
+        }
+        List <Item> foundItems = new ArrayList<>();
+        for (List<Item> items : items.values()){
+            for (Item item : items){
+                if (Objects.equals(item.getModel(), name)){
+                    foundItems.add(item);
+                }
+            }
+        }
+        return foundItems;
     }
 }

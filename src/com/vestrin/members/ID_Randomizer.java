@@ -1,9 +1,8 @@
 package com.vestrin.members;
 
-import java.io.Serializable;
 import java.util.Random;
 
-public class ID_Randomizer implements Serializable {
+public class ID_Randomizer {
 
     private final Random random;
 
