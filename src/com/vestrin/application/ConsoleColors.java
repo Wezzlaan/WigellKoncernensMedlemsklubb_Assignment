@@ -2,11 +2,11 @@ package com.vestrin.application;
 
 public class ConsoleColors {
 
-    public final static String RED = "\u001B[31m";
-    public final static String RESET = "\u001B[0m";
-    public final static String CYAN = "\u001B[36m";
-    public final static String GREEN = "\u001B[32m";
-    private final static String PURPLE = "\u001B[35m";
+    private final String RED = "\u001B[31m";
+    private final String RESET = "\u001B[0m";
+    private final String CYAN = "\u001B[36m";
+    private final String GREEN = "\u001B[32m";
+    private final String PURPLE = "\u001B[35m";
 
     protected ConsoleColors(){
     }

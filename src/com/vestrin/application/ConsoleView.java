@@ -137,11 +137,12 @@ public class ConsoleView {
      */
     protected char newItemPrompt(){
         System.out.println(color.applyCyan("\n-----LÄGG TILL VARA------"));
-        System.out.println("Välj en typ: \n[1] PC" +
+        System.out.println("\nVälj en typ: \n[1] PC" +
                                         "\n[2] Spelkonsoll" +
                                         "\n[3] Tangentbord" +
                                         "\n[4] Mus" +
                                         "\n[5] Skärm");
+        System.out.print(color.applyCyan("\nVal: "));
         return scanner.nextLine().charAt(0);
     }
 
@@ -181,7 +182,7 @@ public class ConsoleView {
     }
 
     protected char bookOrReturnPrompt(){
-        System.out.println(color.applyCyan("\nVill du boka eller avbryta hyrning? \n[1] Boka \n[2] Lämna tillbaka vara"));
+        System.out.println(color.applyCyan("\nVill du boka eller avbryta hyrning? \n[1] Boka \n[2] Lämna tillbaka vara \n[3] Tillbaka"));
         System.out.print(color.applyCyan("\nVal sedan [ENTER]: "));
         return scanner.nextLine().charAt(0);
     }
@@ -202,5 +203,9 @@ public class ConsoleView {
         for (String x : rentalHistory) {
             System.out.println("\n" + x);
         }
+    }
+
+    protected void printShutdownMessage(){
+        System.out.println(color.applyPurple("\nVälkommen åter!"));
     }
 }
