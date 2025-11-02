@@ -1,49 +1,25 @@
 package com.vestrin.controllers;
 
+import com.vestrin.entities.Item;
 import com.vestrin.members.Member;
+import com.vestrin.members.MemberHistory;
 import com.vestrin.members.Ranks;
-import com.vestrin.storage.FileWriter;
 import com.vestrin.storage.MemberRegistry;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class MembersController{
-    private final FileWriter fileWriter;
-    private MemberRegistry memberRegistry;
-    private String filePath = "members.dat";
+    private final MemberRegistry memberRegistry;
 
-
-    /**
-     * CONSTRUCTOR LOADS MEMBER REGISTRY FROM 'members.dat' FILE, IF AVAILALBE. WILL CREATE NEW FILE IF NOT.
-     */
     public MembersController() {
-        this.fileWriter = new FileWriter();
-
-        try {
-            this.memberRegistry = fileWriter.loadMemberRegistry(filePath);
-            System.out.println("Befintlig medlemslista laddad.");
-        } catch (FileNotFoundException e) {
-            this.memberRegistry = new MemberRegistry();
-            System.out.println("Ingen medlemslista hittades. Skapar en ny...");
-        } catch (IOException e){
-            e.printStackTrace();
-            this.memberRegistry = new MemberRegistry();
-        }
+        this.memberRegistry = new MemberRegistry();
     }
 
     /**ADDS NEW MEMBER TO REGISTRY
      * @param member member object
      */
-    private void addNewMember(Member member){
-        try {
-            memberRegistry.addNew(member);
-            fileWriter.writeToFile("members.dat", memberRegistry);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private void addNewMember(Member member) {
+        memberRegistry.addNew(member);
     }
     /**REMOVES MEMBER FROM REGISTRY
      * @param member Member Object
@@ -52,11 +28,6 @@ public class MembersController{
         memberRegistry.remove(member);
     }
 
-    /*public void printAll() {
-        if (!memberRegistry.getMembers().isEmpty()) {
-            memberRegistry.getMembers().forEach(System.out::println);
-        }
-    }*/
 
     public MemberRegistry getRegistry(){
         return this.memberRegistry;
@@ -106,5 +77,15 @@ public class MembersController{
         }
         throw new NoSuchElementException("Kunde inte hitta medlem med ID eller namn: " + identifier);
     }
+
+    public void addRankChangeToHistory(Member member, String oldRank, String newRank){
+        try {
+            MemberHistory memberHistory = member.getMemberHistory();
+            memberHistory.addRankChange(oldRank, newRank);
+        } catch (NullPointerException e){
+            System.err.println(e.getMessage());
+        }
+    }
+
 
 }

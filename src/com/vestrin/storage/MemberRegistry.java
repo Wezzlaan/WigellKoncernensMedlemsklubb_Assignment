@@ -5,7 +5,7 @@ import com.vestrin.members.Member;
 import java.io.Serializable;
 import java.util.*;
 
-public class MemberRegistry implements Serializable {
+public class MemberRegistry{
 
     private final HashMap<String, Member> members;
 
@@ -21,6 +21,7 @@ public class MemberRegistry implements Serializable {
         }
         members.put(newMember.getID(), newMember);
     }
+
     /**
      * @return Members registry as HashMap with <String, Member>.
      */
@@ -28,6 +29,7 @@ public class MemberRegistry implements Serializable {
     {
         return this.members;
     }
+
     /**
      * @param member Member to remove from List.
      */
@@ -55,11 +57,15 @@ public class MemberRegistry implements Serializable {
         return this.members.containsKey(ID);
     }
 
+    /**
+     * Checks if a list contains a specific member, by searching for their name.
+     * @param name full name of member to find.
+     * @return member if found, null if nothing is found, or if the name parameter is empty.
+     */
     public Member containsMemberName(String name){
         if (name == null){
             return null;
         }
-
         for (Member member : members.values()){
             if (Objects.equals(name, member.getName())){
                 return member;

@@ -1,9 +1,7 @@
 package com.vestrin.entities;
-
-import java.io.Serializable;
 import java.util.UUID;
 
-public abstract class Item implements Serializable {
+public abstract class Item{
 
     protected String model;
     protected String brand;
@@ -11,6 +9,8 @@ public abstract class Item implements Serializable {
     protected ItemType type;
     protected UUID itemID;
     protected boolean isRented;
+    protected int rentedDuration;
+    protected double currentRentalPrice;
 
     public Item() {}
 
@@ -22,8 +22,8 @@ public abstract class Item implements Serializable {
      */
     public Item(ItemType itemType, String brand, String name, double price){
         this.type = itemType;
-        this.brand = brand;
-        this.model = name;
+        this.brand = brand.toUpperCase();
+        this.model = name.toUpperCase();
         this.itemID = UUID.randomUUID();
         this.price = price;
     }
@@ -31,6 +31,14 @@ public abstract class Item implements Serializable {
     public enum ItemType {
         PERIPHERALS,
         HARDWARE
+    }
+
+    public void setRentedDuration(int duration){
+        this.rentedDuration = duration;
+    }
+
+    public int getRentedDuration(){
+        return rentedDuration;
     }
 
     public ItemType getItemType()
@@ -96,9 +104,10 @@ public abstract class Item implements Serializable {
      * @return Object to readable String. Format: Brand + Model + ItemID + Price.
      */
     @Override
-    public String toString()
-    {
-        return this.formattedName() + "\n" + "Kostnad (utan medlemsavdrag): " + this.price + ";-" + "\nUtlånad: " + this.isRented;
+    public String toString() {
+        return this.formattedName() + "\n" + "Kategori: " + this.type +
+                                    "\n" + "Kostnad (utan medlemsavdrag): " + this.price +
+                                    ";-" + "\nUtlånad: " + this.isRented;
     }
 
     public boolean getIsRented(){
@@ -110,5 +119,13 @@ public abstract class Item implements Serializable {
      */
     public void setIsRented(Boolean rentedStatus){
         this.isRented = rentedStatus;
+    }
+
+    public void setCurrentRentalPrice(double price) {
+        this.currentRentalPrice = price;
+    }
+
+    public double getCurrentRentalPrice() {
+        return this.currentRentalPrice;
     }
 }
